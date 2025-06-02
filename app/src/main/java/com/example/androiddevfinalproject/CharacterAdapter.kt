@@ -109,24 +109,6 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
         }
 
-        //viewHolder.textViewGrayRavenItemName.text = items[position].name
-       // Picasso.get().load(dataSet[position].photoUrl).into(viewHolder.imageViewItem)
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        //viewHolder.textView.text = dataSet[position]
-        //val datas = dataSet[position]
-//        viewHolder.layout.setOnClickListener{
-//            val context = viewHolder.layout.context
-//            // we need the context of the activity where the recycler view is located
-//            val detailIntent = Intent(context, GrayRavenDetailActivity::class.java)
-//            //Log.d("HyruleLissssst", "onResponse : OMG")
-//
-//            detailIntent.putExtra(GrayRavenDetailActivity.RAVEN_ENTRY, dataSet[position], )
-//            context.startActivity(detailIntent)
-//
-//            // Toast.makeText(context, "You clicked on ${earthquake.properties.}", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
