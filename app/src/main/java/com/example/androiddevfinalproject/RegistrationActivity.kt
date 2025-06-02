@@ -1,5 +1,6 @@
 package com.example.androiddevfinalproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,9 @@ class RegistrationActivity: AppCompatActivity() {
                         val intent = intent
                         intent.putExtra(LoginActivity.EXTRA_USERNAME, username)
                         intent.putExtra(LoginActivity.EXTRA_PASSWORD, password)
-                        setResult(RESULT_OK, intent)
+                        //setResult(RESULT_OK, intent)
+                        val gameSelectionIntent = Intent(this@RegistrationActivity, GameSelectionActivity::class.java)
+                        startActivity(gameSelectionIntent)
                         finish()
                     }
 
@@ -64,15 +67,6 @@ class RegistrationActivity: AppCompatActivity() {
                 })
             }
 
-//            if(RegistrationUtil.validatePassword(password, confirm) &&
-//                RegistrationUtil.validateUsername(username))  {  // && do the rest of the validations
-//                // apply lambda will call the functions inside it on the object
-//                // that apply is called on
-//
-//                // register the user on backendless following the documentation
-//                // and in the handleResponse, that's where we make the resultIntent and go back
-//                // in the handleFailure, toast the failure and don't go back.
-//
 
 //            }
         }

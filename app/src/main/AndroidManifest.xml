@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AndroidDevFinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".BlueArchiveDetailActivity"
+            android:name=".GameSelectionActivity"
             android:exported="true"/>
         <activity
             android:name=".TestListActivity"

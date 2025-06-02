@@ -20,7 +20,8 @@ class GrayRavenDetailActivity: AppCompatActivity() {
         setContentView(binding.root)
         val grayRaven = intent.getParcelableExtra<GrayRavenEntry>(RAVEN_ENTRY)
         binding.textViewGrayRavenDetailName.text = grayRaven!!.name
-    //Picasso.get().load(.photoUrl).into(binding.imageViewBlueArchiveDetail)
+        //Picasso.get().load("https://www.gamegrin.com/assets/game/punishing-gray-raven/logo/_resampled/SetWidth1920-punishing-gray-raven-logo-1.png")
+          //  .into(binding.)
 
 
 

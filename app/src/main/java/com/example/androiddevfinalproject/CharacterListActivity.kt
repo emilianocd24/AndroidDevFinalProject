@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.androiddevfinalproject.LoginActivity.Companion
+import com.example.androiddevfinalproject.LoginActivity.Companion.ACTIVATED_REGISTRATION
 import com.example.androiddevfinalproject.databinding.ActivityCharactersListBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +21,12 @@ class CharacterListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCharactersListBinding
     private lateinit var adapter: CharacterAdapter
 
-
+    companion object{
+//        val PLAYS_GRAY_RAVEN = "Gray Raven Player"
+//        val PLAYS_GUARDIAN_TALES = "Guardian Tales Player"
+        val EXTRA_PREFERENCES = "User Preferences"
+        val EXTRA_USER_ID = "UserId"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +37,7 @@ class CharacterListActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val userPreferences = intent.getParcelableExtra<Preferences>(EXTRA_PREFERENCES)!!
         var grayRavenEntry: List<GrayRavenEntry>? = null
         var gtalesEntry: List<GtalesEntry>? = null
 
@@ -43,19 +51,21 @@ class CharacterListActivity : AppCompatActivity() {
         adapter = CharacterAdapter()
         binding.recylerViewCharctersList.adapter = adapter
         binding.recylerViewCharctersList.layoutManager = LinearLayoutManager(this)
+//        val playsGrayRaven = intent.getBooleanExtra(LoginActivity.PLAYS_GRAY_RAVEN, false)
+//        val playsGtales = intent.getBooleanExtra(LoginActivity.PLAYS_GUARDIAN_TALES, false)
+        //mixedCharacterList += grayRavenEntry!!.map { GachaCharacter.GrayRavenCharacter(it) }
+        //mixedCharacterList += gtalesEntry!!.map { GachaCharacter.GtalesCharacter(it) }
         fun tryUpdateMixedList() {
             if (grayRavenEntry!= null && gtalesEntry != null) {
-                val mixedList = mutableListOf<GachaCharacter>()
-
-                grayRavenEntry?.let { data ->
-                    mixedList += data.map { GachaCharacter.GrayRavenCharacter(it) }
+                val mixedCharacterList = mutableListOf<GachaCharacter>()
+                if (userPreferences.playsGrayRaven) {
+                    mixedCharacterList += grayRavenEntry!!.map { GachaCharacter.GrayRavenCharacter(it) }
                 }
 
-                gtalesEntry?.let { data ->
-                    mixedList += data.map { GachaCharacter.GtalesCharacter(it) }
+                if (userPreferences.playsGuardianTales) {
+                    mixedCharacterList += gtalesEntry!!.map { GachaCharacter.GtalesCharacter(it) }
                 }
-
-                adapter.setItems(mixedList)
+                adapter.setItems(mixedCharacterList)
             }
         }
         grayRavenCall.enqueue(object: Callback<GrayRavenCollection> {

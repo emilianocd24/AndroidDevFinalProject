@@ -12,11 +12,6 @@ import com.squareup.picasso.Picasso
 
 class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<GachaCharacter> = emptyList()
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder)
-     *
-     */
 
     companion object {
         private const val TYPE_GRAY_RAVEN = 0
@@ -51,7 +46,6 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        // Create a new view, which defines the UI of the list item
         return when (viewType){
             TYPE_GRAY_RAVEN -> {
                 val view = LayoutInflater.from(viewGroup.context).
@@ -66,15 +60,55 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             else -> throw IllegalArgumentException("Unknown viewType")
         }
     }
-
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is GachaCharacter.GrayRavenCharacter ->
-                (holder as GrayRavenViewHolder).bind(item.gachaCharacter)
-                //val detailIntent = Intent
-            is GachaCharacter.GtalesCharacter -> (holder as GtalesViewHolder).bind(item.gachaCharacter)
+            is GachaCharacter.GrayRavenCharacter -> {
+                val grayRavenHolder = holder as GrayRavenViewHolder
+
+                grayRavenHolder.name.text = item.gachaCharacter.name
+                Picasso.get()
+                    .load("https://www.gamegrin.com/assets/game/punishing-gray-raven/logo/_res" +
+                            "ampled/SetWidth1920-punishing-gray-raven-logo-1.png")
+                    .resize(140,125)
+                    .centerCrop()
+                    .into(grayRavenHolder.image)
+                grayRavenHolder.itemView.setOnClickListener {
+                    val context = it.context
+                    val detailIntent = Intent(context, GrayRavenDetailActivity::class.java)
+                    detailIntent.putExtra(GrayRavenDetailActivity.RAVEN_ENTRY, item.gachaCharacter)
+                    context.startActivity(detailIntent)
+                }
+            }
+            is GachaCharacter.GtalesCharacter -> {
+                val gTalesHolder = holder as GtalesViewHolder
+
+                val context = holder.itemView.context
+                val imageMap = GtalesImageLoader.loadGtalesImageMap(context)
+                val characterName = item.gachaCharacter.name
+                val imageUrl = imageMap[characterName]
+                if (imageUrl != null){
+                    Picasso.get().load(imageUrl).resize(140,125)
+                        .centerCrop().into(gTalesHolder.characterImage)
+                }
+
+                    gTalesHolder.name.text = item.gachaCharacter.name
+                Picasso.get()
+                    .load("https://static.wikia.nocookie.net/guardian" +
+                            "-tales/images/0/03/Guardian_Tales_Logo.png/revision/latest?cb=20210608170242")
+                    .resize(140,125)
+                    .centerCrop()
+                    .into(gTalesHolder.gameLogo)
+                    gTalesHolder.itemView.setOnClickListener {
+                        val context = it.context
+                        val detailActivity = Intent(context, GtalesDetailActivity::class.java)
+                        detailActivity.putExtra(GtalesDetailActivity.TALES_ENTRY, item.gachaCharacter)
+                        context.startActivity(detailActivity)
+                    }
+
+                }
         }
+
         //viewHolder.textViewGrayRavenItemName.text = items[position].name
        // Picasso.get().load(dataSet[position].photoUrl).into(viewHolder.imageViewItem)
 
