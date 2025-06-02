@@ -34,7 +34,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 //    }
     fun setItems(newItems: List<GachaCharacter>) {
         items = newItems
-        notifyDataSetChanged() // Replace with DiffUtil if needed
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {

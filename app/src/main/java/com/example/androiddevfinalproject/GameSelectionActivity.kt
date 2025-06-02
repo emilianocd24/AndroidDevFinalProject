@@ -15,8 +15,6 @@ import com.example.androiddevfinalproject.databinding.ActivitySelectpreferencesL
 
 class GameSelectionActivity: AppCompatActivity() {
     companion object {
-        // the values to send in intents are called Extras
-        // and have the EXTRA_BLAH format for naming the key
         //val EXTRA_USERNAME = "username"
         //val  = "password"
     }
@@ -29,6 +27,8 @@ class GameSelectionActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectpreferencesListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.checkboxGtales.text = "Guardian Tales"
+        binding.checkboxGrayRaven.text = "Punishing Gray Raven"
 
         binding.checkboxGrayRaven.setOnCheckedChangeListener{ buttonView, isChecked ->
     Log.d("CHECKBOXES", "Meat is checked: $isChecked")
